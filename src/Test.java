@@ -53,5 +53,9 @@ public class Test {
 
         char c = 'a';
 
+        System.out.println("糟糕");
+
     }
+
+
 }
