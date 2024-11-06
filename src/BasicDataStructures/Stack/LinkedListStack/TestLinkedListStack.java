@@ -1,14 +1,11 @@
 package BasicDataStructures.Stack.LinkedListStack;
 
-import BasicDataStructures.Stack.Stack;
 import org.junit.Test;
 
-import java.util.Iterator;
-
-public class TestStack {
+public class TestLinkedListStack {
 
     @Test
-    public void pushTest(){
+    public void pushTest() {
         LinkedListStack<Integer> stack = new LinkedListStack<>(5);
         stack.push(3);
         stack.push(5);
@@ -21,7 +18,7 @@ public class TestStack {
     }
 
     @Test
-    public void popTest(){
+    public void popTest() {
         LinkedListStack<Integer> stack = new LinkedListStack<>(5);
         stack.push(3);
         stack.push(4);
@@ -36,7 +33,7 @@ public class TestStack {
     }
 
     @Test
-    public void peekTest(){
+    public void peekTest() {
         LinkedListStack<Integer> stack = new LinkedListStack<>(5);
         stack.push(3);
         stack.push(4);
@@ -51,7 +48,7 @@ public class TestStack {
     }
 
     @Test
-    public void isEmptyTest(){
+    public void isEmptyTest() {
         LinkedListStack<Integer> stack = new LinkedListStack<>(5);
         System.out.println(stack.isEmpty());
         System.out.println(stack.isFull());
