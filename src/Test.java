@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class Test {
     public static String[] findWords(String[] words) {
@@ -54,6 +55,8 @@ public class Test {
         char c = 'a';
 
         System.out.println("糟糕");
+
+        Stack<Character> stack = new Stack<>();
 
     }
 

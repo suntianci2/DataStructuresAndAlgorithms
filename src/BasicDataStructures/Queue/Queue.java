@@ -1,4 +1,4 @@
-package BasicDataStructures.Queue.Interface;
+package BasicDataStructures.Queue;
 
 public interface Queue<E> {
 

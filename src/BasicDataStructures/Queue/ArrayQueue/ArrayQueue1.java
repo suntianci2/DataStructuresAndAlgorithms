@@ -1,6 +1,6 @@
 package BasicDataStructures.Queue.ArrayQueue;
 
-import BasicDataStructures.Queue.Interface.Queue;
+import BasicDataStructures.Queue.Queue;
 
 import java.util.Iterator;
 
