@@ -1,6 +1,8 @@
-package BasicDataStructures.Queue.PriorityQueue1;
+package BasicDataStructures.Queue;
 
-public class Entry implements Priority{
+import BasicDataStructures.Queue.Priority;
+
+public class Entry implements Priority {
     private String message;
 
     private int priorityValue;

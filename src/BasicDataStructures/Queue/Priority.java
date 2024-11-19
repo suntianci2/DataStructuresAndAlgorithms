@@ -1,4 +1,4 @@
-package BasicDataStructures.Queue.PriorityQueue1;
+package BasicDataStructures.Queue;
 
 public interface Priority {
     // 返回优先级

@@ -13,4 +13,7 @@ public interface Queue<E> {
 
     // 检查队列是否为空
     public boolean isEmpty();
+
+    // 检查队列是否满
+    public boolean isFull();
 }

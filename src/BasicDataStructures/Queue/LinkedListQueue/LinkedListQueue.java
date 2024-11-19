@@ -69,6 +69,12 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
         return head == tail;
     }
 
+    // 判断是否满
+    @Override
+    public boolean isFull() {
+        return false;
+    }
+
     // 迭代器
     @Override
     public Iterator<E> iterator() {

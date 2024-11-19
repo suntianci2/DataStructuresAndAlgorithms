@@ -1,5 +1,6 @@
 package BasicDataStructures.Queue.PriorityQueue1;
 
+import BasicDataStructures.Queue.Priority;
 import BasicDataStructures.Queue.Queue;
 
 // 无序数组实现优先级队列
@@ -67,6 +68,7 @@ public class PriorityQueue1<E extends Priority> implements Queue<E>{
         return size == 0;
     }
 
+    @Override
     public boolean isFull(){
         return size == array.length;
     }

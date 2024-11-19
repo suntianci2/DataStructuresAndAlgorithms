@@ -1,11 +1,12 @@
 package BasicDataStructures.Queue.PriorityQueue1;
 
+import BasicDataStructures.Queue.Entry;
 import org.junit.Test;
 
 public class PriorityQueue1Test {
 
     @Test
-    public void TestPriorityTest(){
+    public void TestPriorityQueue(){
         PriorityQueue1<Entry> priorityQueue1 = new PriorityQueue1<>(5);
         priorityQueue1.offer(new Entry("message10", 10));
         priorityQueue1.offer(new Entry("message6", 6));
