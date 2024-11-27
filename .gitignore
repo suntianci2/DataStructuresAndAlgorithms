@@ -1,3 +1,4 @@
+# 忽略指定文件，不添加到git仓库中
 # Compiled class file
 *.class
 
