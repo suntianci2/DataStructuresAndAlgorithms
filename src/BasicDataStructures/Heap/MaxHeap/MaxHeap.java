@@ -31,14 +31,11 @@ public class MaxHeap {
         // 找到当前索引元素的右孩子元素索引
         int rIndex = index * 2 + 2;
         // 执行下潜操作
-        int max = array[index];
         int maxIndex = index;
-        if (lIndex < size && array[lIndex] > max) {
-            max = array[lIndex];
+        if (lIndex < size && array[lIndex] > array[maxIndex]) {
             maxIndex = lIndex;
         }
-        if (rIndex < size && array[rIndex] > max) {
-            max = array[rIndex];
+        if (rIndex < size && array[rIndex] > array[maxIndex]) {
             maxIndex = rIndex;
         }
         // 表示可以下潜，左右孩子中存在比当前元素还大的值
