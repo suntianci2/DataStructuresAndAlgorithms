@@ -1,4 +1,4 @@
-package BasicAlgorithms;
+package BasicAlgorithms.BinarySearch;
 
 import org.junit.Assert;
 import org.junit.Test;

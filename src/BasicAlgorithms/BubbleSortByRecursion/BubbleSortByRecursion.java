@@ -1,5 +1,8 @@
 package BasicAlgorithms.BubbleSortByRecursion;
 
+/**
+ * 递归实现冒泡排序
+ */
 public class BubbleSortByRecursion {
     public static void sort(int[] a) {
         bubbleSort(a,a.length-1);

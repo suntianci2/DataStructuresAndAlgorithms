@@ -1,5 +1,8 @@
 package BasicAlgorithms.InsertionSortByRecursion;
 
+/**
+ * 插入排序
+ */
 public class InsertionSort {
     public static void sort(int[] arr) {
         insertionSort(arr, 1);

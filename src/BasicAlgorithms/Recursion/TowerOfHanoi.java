@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.LinkedList;
 
+/**
+ * 递归实现汉诺塔
+ */
 public class TowerOfHanoi {
 
     LinkedList<Integer> a = new LinkedList<>();

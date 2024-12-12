@@ -4,7 +4,7 @@ import java.util.StringJoiner;
 
 // 大顶堆
 public class MaxHeap {
-    int size = 0;
+    public int size = 0;
 
     int[] array;
 
@@ -85,7 +85,7 @@ public class MaxHeap {
     }
 
     // 下潜操作
-    private void down(int index) {
+    public void down(int index) {
         // 找到当前索引元素的左孩子元素索引
         int lIndex = index * 2 + 1;
         // 找到当前索引元素的右孩子元素索引
@@ -107,7 +107,7 @@ public class MaxHeap {
     }
 
     // 上浮操作
-    private void up(int index) {
+    public void up(int index) {
         // 找到当前元素的父节点索引
         int parent = (index - 1) / 2;
         // down方法是用递归实现的，这里用循环
@@ -126,7 +126,7 @@ public class MaxHeap {
     }
 
     // 交换两个元素
-    private void swap(int index1, int index2) {
+    public void swap(int index1, int index2) {
         int temp = array[index1];
         array[index1] = array[index2];
         array[index2] = temp;
