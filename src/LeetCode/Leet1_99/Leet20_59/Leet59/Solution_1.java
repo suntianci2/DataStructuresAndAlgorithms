@@ -15,13 +15,13 @@ class Solution_1 {
 
             //// 计算下一个元素的位置
             // 左侧位置合法
-            boolean leftIsLegal = islegal(outcome, index1, index2 - 1);
+            boolean leftIsLegal = isLegal(outcome, index1, index2 - 1);
             // 上侧位置合法
-            boolean upIsLegal = islegal(outcome, index1 - 1, index2);
+            boolean upIsLegal = isLegal(outcome, index1 - 1, index2);
             // 右侧位置合法
-            boolean rightIsLegal = islegal(outcome, index1, index2 + 1);
+            boolean rightIsLegal = isLegal(outcome, index1, index2 + 1);
             // 下侧位置合法
-            boolean downIsLegal = islegal(outcome, index1 + 1, index2);
+            boolean downIsLegal = isLegal(outcome, index1 + 1, index2);
             // 当前元素左侧和上侧位置不合法，右侧合法，则下一个位置为右侧
             if(!leftIsLegal && !upIsLegal && rightIsLegal){
                 index2++;
@@ -40,10 +40,12 @@ class Solution_1 {
     }
 
     // 判断当前位置的元素是否合法（1.越界   2.已有元素（也就是此处位置元素非0））
-    public boolean islegal(int[][] array, int index1, int index2){
+    public boolean isLegal(int[][] array, int index1, int index2){
+        // 1.越界
         if(index1 >= array.length || index2 >= array.length || index1 < 0 || index2 < 0){
             return false;
         }
+        // 2.已有元素
         if(array[index1][index2] != 0){
             return false;
         }
