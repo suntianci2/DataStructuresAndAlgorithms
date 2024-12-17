@@ -1,5 +1,6 @@
 package BasicDataStructures.Tree;
 
+// 二叉树节点类
 public class TreeNode {
     // 节点值
     public int value;
