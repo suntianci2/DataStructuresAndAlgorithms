@@ -19,4 +19,14 @@ public class TraversalTest {
         System.out.println("\n================================");
         RecursionTraversal.postOrder(root);
     }
+
+    @Test
+    public void testNonRecursionTraversal(){
+        TreeNode root = new TreeNode(
+                new TreeNode(new TreeNode(4), 2, null),
+                1,
+                new TreeNode(new TreeNode(5), 3, new TreeNode(6))
+        );
+        NonRecursiveTraversal.TraversalRoad(root);
+    }
 }
