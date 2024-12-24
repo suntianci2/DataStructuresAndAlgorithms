@@ -27,6 +27,14 @@ public class TraversalTest {
                 1,
                 new TreeNode(new TreeNode(5), 3, new TreeNode(6))
         );
+
         NonRecursiveTraversal.TraversalRoad(root);
+
+        System.out.println("\n================================");
+        NonRecursiveTraversal.preOrder(root);
+        System.out.println("\n================================");
+        NonRecursiveTraversal.inOrder(root);
+        System.out.println("\n================================");
+        NonRecursiveTraversal.postOrder(root);
     }
 }
