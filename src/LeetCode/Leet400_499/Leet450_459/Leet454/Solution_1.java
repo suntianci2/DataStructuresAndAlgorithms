@@ -22,7 +22,7 @@ class Solution_1 {
                     map.put(sum, 1);
                 }
                 // 上面的if-else可以替换为一段代码：map.put(i + j, map.getOrDefault(i + j, 0) + 1)
-                // 方法getOrDefault(k, v)：如果存在键k，则返回其对应的值。如果不存在键，返回v
+                // 方法getOrDefault(k, v)：如果存在键k，则返回其对应的值。如果不存在键，返回v。
             }
         }
 
