@@ -23,7 +23,7 @@ public class TraversalTest {
     @Test
     public void testNonRecursionTraversal(){
         TreeNode root = new TreeNode(
-                new TreeNode(new TreeNode(4), 2, null),
+                new TreeNode(new TreeNode(4), 2, new TreeNode(7)),
                 1,
                 new TreeNode(new TreeNode(5), 3, new TreeNode(6))
         );
