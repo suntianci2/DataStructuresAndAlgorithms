@@ -12,11 +12,11 @@ public class TraversalTest {
                 1,
                 new TreeNode(new TreeNode(5), 3, new TreeNode(6))
         );
-
+        System.out.println("\n=================前序===============");
         RecursionTraversal.preOrder(root);
-        System.out.println("\n================================");
+        System.out.println("\n=================中序===============");
         RecursionTraversal.inOrder(root);
-        System.out.println("\n================================");
+        System.out.println("\n=================后序===============");
         RecursionTraversal.postOrder(root);
     }
 
@@ -30,11 +30,29 @@ public class TraversalTest {
 
         NonRecursiveTraversal.TraversalRoad(root);
 
-        System.out.println("\n================================");
+        System.out.println("\n==================前序==============");
         NonRecursiveTraversal.preOrder(root);
-        System.out.println("\n================================");
+        System.out.println("\n==================中序==============");
         NonRecursiveTraversal.inOrder(root);
-        System.out.println("\n================================");
+        System.out.println("\n==================后序==============");
         NonRecursiveTraversal.postOrder(root);
+    }
+
+    @Test
+    public void testNonRecursionTraversal02(){
+        TreeNode root = new TreeNode(
+                new TreeNode(new TreeNode(4), 2, new TreeNode(7)),
+                1,
+                new TreeNode(new TreeNode(5), 3, new TreeNode(6))
+        );
+
+        NonRecursiveTraversal.TraversalRoad(root);
+
+        System.out.println("\n=================前序===============");
+        NonRecursiveTraversal.order(0, root);
+        System.out.println("\n=================中序===============");
+        NonRecursiveTraversal.order(1, root);
+        System.out.println("\n=================后序===============");
+        NonRecursiveTraversal.order(2, root);
     }
 }
