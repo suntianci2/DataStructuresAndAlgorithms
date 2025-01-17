@@ -2,8 +2,9 @@ package LeetCode.Leet1_99.Leet20_29.Leet27;
 
 /**
  * ==**方法二	双指针优化**	（0ms）==
- * <p>
+ *
  * 一个指针从前面开始，另一个指针从尾部开始
+ * 从题目中看，元素的顺序并不重要，所以这个方法可以解决问题
  */
 class Solution_2 {
     public int removeElement(int[] nums, int val) {
