@@ -120,7 +120,7 @@ public class NonRecursiveTraversal {
         }
     }
 
-    // 通用遍历，根据遍历operation指定遍历方式。0：前序，1：中序，2：后续
+    // 通用遍历，根据遍历operation指定遍历方式。0：前序，1：中序，2：后序
     public static void order(Integer operation, TreeNode treeNode) {
         TreeNode thisNode = treeNode;
         // 用栈记录走过的路，方便向回走

@@ -1,4 +1,7 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @ClassName Test
@@ -63,8 +66,10 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        char[] a = new char[]{'a','b','a','a','b','a','b','a','a','b','a','b','a','b'};
-        int[] ints = calPrefixTable(a);
-        System.out.println(Arrays.toString(ints));
+        String a = "abc";
+        String b = new String("abc");
+        String c = "abc";
+        System.out.println(a == b);
+        System.out.println(a == c);
     }
 }
