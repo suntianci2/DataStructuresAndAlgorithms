@@ -107,7 +107,7 @@ public class NonRecursiveTraversal {
                 if (prevNode.right == null || prevNode.right == prevPopNode) {
                     // 弹出节点，准备处理该节点
                     stack.pop();
-                    // 记录上一次弹出的节点，便于后续使用
+                    // 记录弹出的节点，便于后续使用
                     prevPopNode = prevNode;
                     System.out.print(prevNode.value + "\t");
                     // 否则，表示左孩子处理完毕了，但是右孩子还没有
