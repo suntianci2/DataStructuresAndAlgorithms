@@ -8,64 +8,49 @@ import java.util.Map;
  * @Author 孙天赐
  * @Date 2025/3/6 19:47
  * @Description TODO: 方法二 迭代（优化版）   2ms  91.74%
- *                  与方法一思路完全一致，但是进行了很大的优化，
- *                  1.使用了哈希表存储中序遍历结果的下标，这样在递归函数中，就不需要每次都遍历中序遍历结果数组了。
- *                  2.使用了一个全局变量 post_idx 记录当前子树的根节点在后序遍历结果数组中的下标，这样在递归函数中，就不需要每次都创建新的数组了。
- *                  3.使用了一个全局变量 idx_map 记录中序遍历结果数组中每个元素的下标，这样在递归函数中，就不需要每次都遍历中序遍历结果数组了。
+ *                  与方法一思路完全一致，但是进行了很大的优化
+ *                  1. 把中序遍历的数组元素和下标都存放到map集合中，便于后续获取指定元素的下标
+ *                  2. 把中序遍历和后续遍历的数组都提升为成员变量，避免频繁创建数组
+ *                  3. 把后续遍历的最后一个元素的索引提升为成员变量，避免频繁创建数组
  *
  */
 class Solution_2 {
-
-    // 记录当前子树的根节点在后序遍历结果数组中的下标
-    int post_idx;
-
-    // 记录后序遍历结果数组
-    int[] postorder;
-
-    // 记录中序遍历结果数组
-    int[] inorder;
-
-    // 存储中序遍历结果数组中每个元素的下标，以便快速查找元素的位置
-    Map<Integer, Integer> idx_map = new HashMap<Integer, Integer>();
-
-    // 递归函数
-    // in_left 中序遍历结果数组的左边界
-    // in_right 中序遍历结果数组的右边界
-    // 返回当前子树的根节点
-    public TreeNode helper(int in_left, int in_right) {
-        // 如果这里没有节点构造二叉树了，就结束
-        if (in_left > in_right) {
+    int[] inorder;  // 中序遍历数组提升为成员变量，避免频繁创建数组
+    int[] postorder; // 后序遍历数组提升为成员变量，避免频繁创建数组
+    int postIndex;  // 后续遍历最后一个元素的索引
+    Map<Integer, Integer> map = new HashMap<>();
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if(inorder.length == 0 || postorder.length == 0){
             return null;
         }
-
-        // 选择 post_idx 位置的元素作为当前子树根节点
-        int root_val = postorder[post_idx];
-        TreeNode root = new TreeNode(root_val);
-
-        // 根据 root 所在位置分成左右两棵子树
-        int index = idx_map.get(root_val);
-
-        // 下标减一
-        post_idx--;
-        // 构造右子树
-        root.right = helper(index + 1, in_right);
-        // 构造左子树
-        root.left = helper(in_left, index - 1);
-        return root;
+        // 元素提升为成员变量
+        this.inorder = inorder;
+        this.postorder = postorder;
+        this.postIndex = postorder.length - 1;
+        // map集合存放每个节点元素在中序遍历结果数组中的下标（元素：下标）
+        for(int i = 0;i < inorder.length;i++){
+            map.put(inorder[i], i);
+        }
+        return doBuild(0, inorder.length - 1);
     }
 
-    public TreeNode buildTree(int[] inorder, int[] postorder) {
-        this.postorder = postorder;
-        this.inorder = inorder;
-        // 从后序遍历的最后一个元素开始
-        post_idx = postorder.length - 1;
-
-        // 建立（元素，下标）键值对的哈希表
-        int idx = 0;
-        for (Integer val : inorder) {
-            idx_map.put(val, idx++);
+    // 递归构建树。两个参数分别为当前节点中序遍历数组的起始坐标和终止坐标（闭区间）
+    public TreeNode doBuild(int startIndex, int endIndex){
+        // 递归终止条件
+        if(startIndex > endIndex || postIndex < 0){
+            return null;
         }
-
-        return helper(0, inorder.length - 1);
+        // 后续遍历的最后一个值，即为当前根节点的值
+        int val = postorder[postIndex];
+        // 后续遍历最后一个元素的索引减一，模拟删除了最后一个元素
+        postIndex--;
+        // 获取当前节点值在中序遍历数组中的位置
+        int index = map.get(val);
+        // 构建当前节点
+        TreeNode root = new TreeNode(val);
+        // 按照该位置切分中序遍历数组，并且递归构建右子树和左子树。先构建右子树
+        root.right = doBuild(index + 1, endIndex);
+        root.left = doBuild(startIndex, index - 1);
+        return root;
     }
 }
