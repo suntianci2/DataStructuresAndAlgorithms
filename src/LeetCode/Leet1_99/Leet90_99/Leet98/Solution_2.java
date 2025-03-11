@@ -8,7 +8,7 @@ import java.util.List;
  * @ClassName Solution_2
  * @Author 孙天赐
  * @Date 2025/3/9 14:33
- * @Description TODO: 方法二   中序遍历    4ms 3.85%
+ * @Description TODO: 方法二   中序遍历（迭代）    4ms 3.85%
  *                  中序遍历二叉搜索树，得到的结果是严格升序的
  *                  所以我们可以对得到的中序遍历结果进行判断，
  *                  如果是严格升序的，那么该树就是二叉搜索树
@@ -16,7 +16,7 @@ import java.util.List;
  */
 class Solution_2 {
     public boolean isValidBST(TreeNode root) {
-        if(root == null){
+        if (root == null) {
             return true;
         }
         // 记录中序遍历结果
@@ -25,12 +25,12 @@ class Solution_2 {
         LinkedList<TreeNode> stack = new LinkedList<>();
         // 当前访问的节点
         TreeNode thisNode = root;
-        while(thisNode != null || !stack.isEmpty()){
-            if(thisNode != null){
+        while (thisNode != null || !stack.isEmpty()) {
+            if (thisNode != null) {
                 // 左
                 stack.push(thisNode);
                 thisNode = thisNode.left;
-            }else{
+            } else {
                 TreeNode temp = stack.pop();
                 // 中
                 inorderList.add(temp.val);
@@ -39,8 +39,8 @@ class Solution_2 {
             }
         }
         // 判断中序遍历结果是否严格升序，只有严格升序，该树才为二叉搜索树
-        for(int i = 1;i < inorderList.size();i++){
-            if(inorderList.get(i - 1) >= inorderList.get(i)){
+        for (int i = 1; i < inorderList.size(); i++) {
+            if (inorderList.get(i - 1) >= inorderList.get(i)) {
                 return false;
             }
         }
