@@ -79,6 +79,71 @@ public class BTree {
             children[index] = child;
             // 此处有效关键字数量不用加1，因为加入key的时候有效关键字数量会加1
         }
+
+        // 移除指定index处的key
+        int removeKey(int index) {
+            int t = keys[index];
+            // 从前往后移动元素
+            for (int i = index; i < keyNumber - 1; i++) {
+                keys[i] = keys[i + 1];
+            }
+            // 有效关键字数量减1
+            keyNumber--;
+            return t;
+        }
+
+        // 移除最左边的key
+        int removeLeftmostKey(int key) {
+            return removeKey(0);
+        }
+
+        // 移除最右边的key
+        int removeRightmostKey(int key) {
+            return removeKey(keyNumber - 1);
+        }
+
+        // 移除指定index处的child
+        Node removeChild(int index) {
+            Node t = children[index];
+            // 从前往后移动元素
+            for (int i = index; i < keyNumber - 1; i++) {
+                children[i] = children[i + 1];
+            }
+            return t;
+        }
+
+        // 移除最左边的child
+        Node removeLeftmostChild(int key) {
+            return removeChild(0);
+        }
+
+        // 移除最右边的child
+        Node removeRightmostChild(int key) {
+            return removeChild(keyNumber);
+        }
+
+        // index 孩子处左边的兄弟
+        Node childLeftSibling(int index) {
+            return index > 0 ? children[index - 1] : null;
+        }
+
+        // index 孩子处右边的兄弟
+        Node childRightSibling(int index) {
+            return index == keyNumber ? null : children[index + 1];
+        }
+
+        // 复制当前节点的所有key和child到target
+        void moveToTarget(Node target) {
+            int start = target.keyNumber;
+            if (!isLeaf) {
+                for (int i = 0; i <= keyNumber; i++) {
+                    target.children[start + i] = children[i];
+                }
+            }
+            for (int i = 0; i < keyNumber; i++) {
+                target.keys[target.keyNumber++] = keys[i];
+            }
+        }
     }
 
     // 根节点
@@ -138,7 +203,7 @@ public class BTree {
         // 2. 如果当前节点是叶子节点，直接插入
         if (node.isLeaf) {
             node.insertKey(key, i);
-        }else{
+        } else {
             // 3. 如果当前节点是非叶子节点，需要继续在children[i]处递归插入
             doPut(node.children[i], key, node, i);
         }
@@ -168,7 +233,7 @@ public class BTree {
             right.keys[i] = left.keys[i + t];
         }
         // 分裂节点时非叶子节点的情况
-        if(!left.isLeaf){
+        if (!left.isLeaf) {
             // 将left的后t个孩子节点移动到right中
             for (int i = 0; i < t; i++) {
                 right.children[i] = left.children[i + t];
@@ -186,6 +251,62 @@ public class BTree {
     }
 
     // 删除一个key
+    public void remove(int key) {
+        doRemove(root, key);
+    }
+
+    private void doRemove(Node node, int key) {
+        int i = 0;
+        while (i < node.keyNumber) {
+            // 找到key，或者找到了可能存在该key的孩子节点
+            if (node.keys[i] >= key) {
+                break;
+            }
+            i++;
+        }
+        if (node.isLeaf) {
+            if (!found(node, key, i)) {
+                // 情况1：是叶子节点，并且没找到key，结束
+                return;
+            } else {
+                // 情况2：是叶子节点，并且找到了key，直接删除
+                node.removeKey(i);
+            }
+        } else {
+            if (!found(node, key, i)) {
+                // 情况3：不是叶子节点，并且没找到key，到第i个孩子节点中递归删除
+                doRemove(node.children[i], key);
+            } else {
+                // 情况4：不是叶子节点，并且找到了key，使用李代桃僵思路，用后继节点替换当前节点，并删除原来的后继节点
+                // 1. 找到后继节点
+                Node successor = node.children[i + 1];
+                while (!successor.isLeaf) {
+                    successor = successor.children[0];
+                }
+                int successorKey = successor.keys[0];
+                // 2. 替换待删除的key
+                node.keys[i] = successorKey;
+                // 3. 递归删除后继节点
+                doRemove(node.children[i + 1], successorKey);
+
+            }
+        }
+        if (node.keyNumber < MIN_KEY_NUMBER) {
+            // 情况5、6：当不平衡了，需要重新调整平衡
+        }
+
+    }
+
+    // 调整平衡
+    private void balance(Node node) {
+
+    }
+
+    // 判断是否找到key
+    private boolean found(Node node, int key, int i) {
+        return i < node.keyNumber && node.keys[i] == key;
+
+    }
 
 
 }
