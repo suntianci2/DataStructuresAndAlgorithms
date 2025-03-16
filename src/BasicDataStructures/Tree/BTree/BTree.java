@@ -93,12 +93,12 @@ public class BTree {
         }
 
         // 移除最左边的key
-        int removeLeftmostKey(int key) {
+        int removeLeftmostKey() {
             return removeKey(0);
         }
 
         // 移除最右边的key
-        int removeRightmostKey(int key) {
+        int removeRightmostKey() {
             return removeKey(keyNumber - 1);
         }
 
@@ -106,19 +106,19 @@ public class BTree {
         Node removeChild(int index) {
             Node t = children[index];
             // 从前往后移动元素
-            for (int i = index; i < keyNumber - 1; i++) {
+            for (int i = index; i < keyNumber; i++) {
                 children[i] = children[i + 1];
             }
             return t;
         }
 
         // 移除最左边的child
-        Node removeLeftmostChild(int key) {
+        Node removeLeftmostChild() {
             return removeChild(0);
         }
 
         // 移除最右边的child
-        Node removeRightmostChild(int key) {
+        Node removeRightmostChild() {
             return removeChild(keyNumber);
         }
 
@@ -252,10 +252,11 @@ public class BTree {
 
     // 删除一个key
     public void remove(int key) {
-        doRemove(root, key);
+        doRemove(null, root, 0, key);
     }
 
-    private void doRemove(Node node, int key) {
+    // 递归删除key
+    private void doRemove(Node parent, Node node, int index, int key) {
         int i = 0;
         while (i < node.keyNumber) {
             // 找到key，或者找到了可能存在该key的孩子节点
@@ -275,7 +276,7 @@ public class BTree {
         } else {
             if (!found(node, key, i)) {
                 // 情况3：不是叶子节点，并且没找到key，到第i个孩子节点中递归删除
-                doRemove(node.children[i], key);
+                doRemove(node, node.children[i], i, key);
             } else {
                 // 情况4：不是叶子节点，并且找到了key，使用李代桃僵思路，用后继节点替换当前节点，并删除原来的后继节点
                 // 1. 找到后继节点
@@ -287,19 +288,68 @@ public class BTree {
                 // 2. 替换待删除的key
                 node.keys[i] = successorKey;
                 // 3. 递归删除后继节点
-                doRemove(node.children[i + 1], successorKey);
+                doRemove(node, node.children[i + 1], i + 1, successorKey);
 
             }
         }
         if (node.keyNumber < MIN_KEY_NUMBER) {
             // 情况5、6：当不平衡了，需要重新调整平衡
+            balance(parent, node, index);
         }
 
     }
 
-    // 调整平衡
-    private void balance(Node node) {
+    // 调整平衡 parent 是 x 的父节点，i 是 x 在 parent 中的索引
+    private void balance(Node parent, Node x, int i) {
+        // 情况6：根节点
+        if (x == root) {
+            // 如果根节点没有key，并且有孩子，将孩子作为根节点
+            if (root.keyNumber == 0 && root.children[0] != null) {
+                root = root.children[0];
+            }
+            return;
+        }
 
+        Node left = parent.childLeftSibling(i); // 找到左边的兄弟
+        Node right = parent.childRightSibling(i);  // 找到右边的兄弟
+        if (left != null && left.keyNumber > MIN_KEY_NUMBER) {
+            // 情况5-1：左边富裕，右旋
+            // a) 父节点中前驱key旋转下来
+            x.insertKey(parent.keys[i - 1], 0);
+            // b) 如果x不是叶子节点，需要将left的最右边的孩子节点移动到x的最左边
+            if (!left.isLeaf) {
+                x.insertChild(left.removeRightmostChild(), 0);
+            }
+            // c) left中最大的key旋转上去
+            parent.keys[i - 1] = left.removeRightmostKey();
+            return;
+        }
+
+        if (right != null && right.keyNumber > MIN_KEY_NUMBER) {
+            // 情况5-2：右边富裕，左旋
+            // a) 父节点中后继key旋转下来
+            x.insertKey(parent.keys[i], x.keyNumber);
+            // b) 如果x不是叶子节点，需要将right的最左边的孩子节点移动到x的最右边
+            if (!right.isLeaf) {
+                x.insertChild(right.removeLeftmostChild(), x.keyNumber + 1);
+            }
+            // c) right中最小的key旋转上去
+            parent.keys[i] = right.removeLeftmostKey();
+            return;
+        }
+
+        // 情况5-3：两边都不够借，向左合并
+        if (left != null) {
+            // 向左兄弟合并
+            parent.removeChild(i);
+            left.insertKey(parent.removeKey(i - 1), left.keyNumber);
+            x.moveToTarget(left);
+        } else {
+            // 向自己合并
+            parent.removeChild(i + 1);
+            x.insertKey(parent.removeKey(i), x.keyNumber);
+            right.moveToTarget(x);
+        }
     }
 
     // 判断是否找到key
@@ -307,6 +357,5 @@ public class BTree {
         return i < node.keyNumber && node.keys[i] == key;
 
     }
-
 
 }
