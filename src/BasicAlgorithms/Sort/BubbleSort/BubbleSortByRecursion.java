@@ -1,4 +1,4 @@
-package BasicAlgorithms.BubbleSortByRecursion;
+package BasicAlgorithms.Sort.BubbleSort;
 
 /**
  * 递归实现冒泡排序

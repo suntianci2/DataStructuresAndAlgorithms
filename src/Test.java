@@ -1,6 +1,5 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName Test
@@ -10,6 +9,7 @@ import java.util.Set;
  */
 public class Test {
     public static void main(String[] args) {
-
+        Set<List<Integer>> result = new HashSet<>();
+        List<List<Integer>> collect = result.stream().collect(Collectors.toList());
     }
 }

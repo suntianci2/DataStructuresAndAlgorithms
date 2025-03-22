@@ -1,4 +1,4 @@
-package LeetCode.Leet1_99.Leet20_59.Leet59;
+package LeetCode.Leet1_99.Leet50_59.Leet59;
 
 /**
  * TODO: 方法一    模拟  （0ms）

@@ -1,9 +1,9 @@
-package BasicAlgorithms.InsertionSortByRecursion;
+package BasicAlgorithms.Sort.InsertionSort;
 
 /**
- * 插入排序
+ * TODO: 插入排序（递归）
  */
-public class InsertionSort {
+public class InsertionSortByRecursion {
     public static void sort(int[] arr) {
         insertionSort(arr, 1);
     }

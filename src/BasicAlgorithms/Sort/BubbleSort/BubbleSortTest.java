@@ -1,4 +1,4 @@
-package BasicAlgorithms.BubbleSortByRecursion;
+package BasicAlgorithms.Sort.BubbleSort;
 
 import org.junit.Test;
 
