@@ -28,6 +28,9 @@ public class Vertex {
     // 距离，从源顶点到当前顶点的距离，默认为整数的最大值
     public int distance = INF;
 
+    // 前驱顶点，用于记录路径
+    public Vertex prev;
+
     private static final int INF = Integer.MAX_VALUE;
 
     public Vertex(String name) {

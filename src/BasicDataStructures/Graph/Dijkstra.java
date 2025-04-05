@@ -1,23 +1,21 @@
 package BasicDataStructures.Graph;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName Dijkstra
  * @Author 孙天赐
  * @Date 2025/3/25 16:05
  * @Description TODO: 迪克斯特拉 单源最短路径算法
- *                  1.将所有顶点标记为未访问，创建一个未访问顶点的集合
+ *                  1.创建一个优先级队列，放入所有顶点
  *                  2.为每个顶点分配一个临时距离值
  *                      对于我们的初始顶点，将其设置为0
  *                      对于其他所有顶点，将其设置为无穷大
  *                  3.每次选择最小临时距离的未访问顶点，作为新的当前顶点
- *                  4.对于当前顶点，遍历其所有未访问的邻居，并更新它们的临时距离为更小
+ *                  4.对于当前顶点，遍历其所有未访问的邻居，并更新它们的临时距离为更小，若距离更新则加入队列
  *                      例如，1 -> 6的距离是14，1 -> 3 -> 6的距离是11，这时将距离更新为11
  *                      否则，将保留上次的距离值
- *                  5.当前顶点的邻居处理完成之后，把它从未访问集合中删除
+ *                  5.当前顶点的邻居处理完成之后，把它从队列中删除
  *                  6.重复步骤3-5
  */
 public class Dijkstra {
@@ -49,47 +47,49 @@ public class Dijkstra {
     }
 
     public static void dijkstra(List<Vertex> graph, Vertex source) {
-        // 未访问的顶点集合
-        List<Vertex> unvisited = new ArrayList<>(graph);
+        // 优先级队列，存放顶点，按照距离排序，默认小顶堆
+        PriorityQueue<Vertex> queue = new PriorityQueue<>(Comparator.comparingInt( v -> v.distance));
+        // 存放顶点
+        for (Vertex vertex : graph) {
+            queue.offer(vertex);
+        }
         source.distance = 0;
 
-        while (!unvisited.isEmpty()) {
+        while (!queue.isEmpty()) {
             // 选取距离最小的顶点
-            Vertex minVertex = chooseMinDistance(unvisited);
+            Vertex minVertex = queue.peek();
             // 更新当前节点的邻居节点的距离
-            updateNeighbors(minVertex, unvisited);
+            if(!minVertex.visited){
+                updateNeighbors(minVertex, queue);
+                // 标记为已访问
+                minVertex.visited = true;
+            }
             // 移除当前顶点
-            unvisited.remove(minVertex);
+            queue.poll();
+
         }
 
         for (Vertex vertex : graph) {
-            System.out.println(source.getName() + " -> " + vertex.getName() + " : " + vertex.distance);
+            System.out.println(source.getName() + " -> " + vertex.getName() + " : " + vertex.distance + " prev: " + (vertex.prev != null ? vertex.prev.name : "null"));
         }
     }
 
     // 更新当前节点的邻居节点的距离
-    private static void updateNeighbors(Vertex vertex, List<Vertex> list) {
+    private static void updateNeighbors(Vertex vertex, PriorityQueue<Vertex> queue) {
         for (Edge edge : vertex.edges) {
             Vertex temp = edge.linked;
-            // 只有邻居节点在未访问的集合中，才更新距离
-            if(list.contains(temp)) {
+            // 只有邻居节点还未访问，才更新距离
+            if (!temp.visited) {
                 int newDist = vertex.distance + edge.weight;
                 // 找到更小的距离
-                if(newDist < temp.distance) {
+                if (newDist < temp.distance) {
                     temp.distance = newDist;
+                    temp.prev = vertex;
+                    // 重新入队
+                    queue.offer(temp);
                 }
             }
         }
     }
 
-    // 选择距离最小的顶点
-    private static Vertex chooseMinDistance(List<Vertex> list) {
-        Vertex minVertex = list.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if(list.get(i).distance < minVertex.distance) {
-                minVertex = list.get(i);
-            }
-        }
-        return minVertex;
-    }
 }
