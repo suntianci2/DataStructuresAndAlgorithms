@@ -1,6 +1,3 @@
-import java.util.*;
-import java.util.stream.Collectors;
-
 /**
  * @ClassName Test
  * @Author 孙天赐
@@ -8,8 +5,11 @@ import java.util.stream.Collectors;
  * @Description TODO:
  */
 public class Test {
+    private static int x = 100;
     public static void main(String[] args) {
-        Set<List<Integer>> result = new HashSet<>();
-        List<List<Integer>> collect = result.stream().collect(Collectors.toList());
+        Test test = new Test();
+        test.x++;
+        Test.x++;
+        System.out.println(x);
     }
 }
