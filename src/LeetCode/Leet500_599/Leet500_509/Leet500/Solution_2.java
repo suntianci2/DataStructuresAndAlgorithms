@@ -1,4 +1,4 @@
-package LeetCode.Leet500_599.Leet500_509.Leet_500;
+package LeetCode.Leet500_599.Leet500_509.Leet500;
 
 /**
  * TODO:==**方法二**==	（0ms）

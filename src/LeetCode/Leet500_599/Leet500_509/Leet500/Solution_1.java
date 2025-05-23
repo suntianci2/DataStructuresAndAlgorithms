@@ -1,4 +1,4 @@
-package LeetCode.Leet500_599.Leet500_509.Leet_500;
+package LeetCode.Leet500_599.Leet500_509.Leet500;
 
 import java.util.Collections;
 import java.util.HashSet;
