@@ -32,6 +32,5 @@ public class Test {
     public static void main(String[] args) {
         reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
         List<Integer> list = new ArrayList<>();
-        list.add();
     }
 }
